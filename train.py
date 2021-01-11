@@ -23,6 +23,7 @@ def train():
     metrics = model.evaluate(test_x, test_y)
     print("metrics:", metrics)
     # 保存模型
+    save_path = './models/model1.h5'
     model.save(save_path)
 
 
