@@ -2,19 +2,19 @@ import tensorflow as tf
 import numpy as np
 import keras
 from data_generator import load_mnist
-from model import full_connect, cnn, cnn_gap
+from model import full_connect, cnn, cnn_gap, full_connect_5
 
 
 def train():
     # set hyperparameters
     batchsize = 200
-    epochs = 10
-    lr = 0.01
+    epochs = 100
+    lr = 0.003
     # get training and testing data
     train_x, train_y = load_mnist('./data', 'train')
     test_x, test_y = load_mnist('./data', 'test')
     # construct model
-    model = cnn_gap(lr)
+    model = full_connect(lr)
     # training
     History = model.fit(train_x, train_y, batch_size=batchsize, epochs=epochs, validation_data=(test_x, test_y),
                         shuffle=True)
