@@ -9,7 +9,7 @@ def train():
     # set hyperparameters
     batchsize = 200
     epochs = 10
-    lr = 0.1
+    lr = 0.01
     # get training and testing data
     train_x, train_y = load_mnist('./data', 'train')
     test_x, test_y = load_mnist('./data', 'test')

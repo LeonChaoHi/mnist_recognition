@@ -68,16 +68,19 @@ def cnn(lr=0.01):
 def cnn_gap(lr=0.01):
     model = Sequential()
     model.add(Reshape((28,28,1), input_shape=(784,)))
-    model.add(Conv2D(64, (3, 3), activation="relu", padding="valid", name="block1_conv1"))
-    model.add(Conv2D(128, (3, 3), activation="relu", padding="valid", name="block1_conv2"))
+    model.add(Conv2D(32, (5, 5), activation="relu", padding="valid", name="block1_conv1"))
+    model.add(Conv2D(64, (5, 5), activation="relu", padding="valid", name="block1_conv2"))
     model.add(MaxPooling2D((2,2), name='block1_mp'))
-    model.add(Conv2D(256, (3, 3), activation="relu", padding="valid", name="block2_conv1"))
-    model.add(Conv2D(10, (3, 3), activation="relu", padding="valid", name="block2_conv2"))
+    model.add(Conv2D(128, (3, 3), activation="relu", padding="valid", name="block2_conv1"))
+    model.add(Conv2D(128, (3, 3), activation="relu", padding="valid", name="block2_conv2"))
+    model.add(Conv2D(10, (1, 1), activation="relu", padding="valid", name="block2_conv3"))
     model.add(GlobalAveragePooling2D())
     model.add(Activation('softmax'))
     model.summary()
     sgd = optimizers.sgd(lr=lr, momentum=0.9, nesterov=True)
-    model.compile(loss='categorical_crossentropy', optimizer=sgd)
+    rmsprop = optimizers.RMSprop(lr)
+
+    model.compile(loss='categorical_crossentropy', optimizer=rmsprop)
     return model
 
 
