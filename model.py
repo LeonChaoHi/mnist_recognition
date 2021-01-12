@@ -8,43 +8,39 @@ from keras.layers import Conv2D, MaxPool2D, MaxPooling2D, Dense, Flatten, Dropou
 def full_connect(lr=0.01):
     model = Sequential(name='full_connect')
     model.add(Dense(55, input_shape=(784,), activation='relu', name='layer1'))
-    model.add(Dense(10, activation='softmax', name='layer3'))
+    model.add(Dense(10, activation='softmax', name='layer2'))
     model.summary()
     rmsprop = optimizers.RMSprop(lr)
     sgd = optimizers.sgd(lr=lr, momentum=0.9, nesterov=True)
 
     model.compile(loss='categorical_crossentropy', optimizer=sgd)
     return model
-    
 
-def full_connect_5(lr):
+
+def full_connect_4(lr=0.01):
+    model = Sequential()
+    model.add(Dense(50, input_shape=(784,), activation='relu', name='layer1'))
+    model.add(Dense(50, activation='relu', name='layer2'))
+    model.add(Dense(10, activation='softmax', name='layer3'))
+    model.summary()
+    rmsprop = optimizers.RMSprop(lr=lr)
+    model.compile(loss='categorical_crossentropy', optimizer=rmsprop)
+    return model
+
+
+def full_connect_7(lr=0.01):
     model = Sequential(name='full_connect_deeper')
-    model.add(Dense(42, input_shape=(784,), activation='relu', name='layer1'))
-    model.add(Dense(42, activation='relu', name='layer2'))
-    model.add(Dense(42, activation='relu', name='layer3'))
-    model.add(Dense(42, activation='relu', name='layer4'))
-    model.add(Dense(42, activation='relu', name='layer5'))
+    model.add(Dense(40, input_shape=(784,), activation='relu', name='layer1'))
+    model.add(Dense(40, activation='relu', name='layer2'))
+    model.add(Dense(40, activation='relu', name='layer3'))
+    model.add(Dense(40, activation='relu', name='layer4'))
+    model.add(Dense(40, activation='relu', name='layer5'))
     model.add(Dense(10, activation='softmax', name='layer6'))
     model.summary()
     rmsprop = optimizers.RMSprop(lr=lr)
     sgd = optimizers.sgd(lr=lr, momentum=0.9, nesterov=True)
 
     model.compile(loss='categorical_crossentropy', optimizer=sgd)
-    return model
-
-
-def full_connect_8():
-    model = Sequential()
-    model.add(Dense(300, input_shape=(784,), activation='relu', name='layer1'))
-    model.add(Dense(300, activation='relu', name='layer2'))
-    model.add(Dense(300, activation='relu', name='layer3'))
-    model.add(Dense(300, activation='relu', name='layer4'))
-    model.add(Dense(300, activation='relu', name='layer5'))
-    model.add(Dense(300, activation='relu', name='layer6'))
-    model.add(Dense(10, activation='softmax', name='layer7'))
-    model.summary()
-    rmsprop = optimizers.RMSprop(lr=0.01)
-    model.compile(loss='categorical_crossentropy', optimizer=rmsprop)
     return model
 
 
@@ -81,14 +77,13 @@ def cnn_gap(lr=0.01):
     model.summary()
     sgd = optimizers.sgd(lr=lr, momentum=0.9, nesterov=True)
     rmsprop = optimizers.RMSprop(lr)
-
     model.compile(loss='categorical_crossentropy', optimizer=rmsprop)
     return model
 
 
 if __name__ == "__main__":
-    # fc_net = full_connect()
-    fc_net5 = full_connect(0.01)
-    # fc_net8 = full_connect_8()
-    # cnn1 = cnn()
-    # cnn2 = cnn_gap()
+    fc_net = full_connect()
+    fc_net4 = full_connect_4()
+    fc_net7 = full_connect_7()(0.01)
+    cnn1 = cnn()
+    cnn2 = cnn_gap()
